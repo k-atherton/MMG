@@ -1,10 +1,5 @@
 ### DOWNLOAD MYCOCOSM DATA #####################
-#source("/projectnb/talbot-lab-data/Katies_data/picrust_for_fungi_package/get_refseq_its.R")
-
-# File made by Zoey: can use this version, or run above lines to make new as Mycocosm is updated
-## contains the mycocosm data on Organism name, Portal name, 
-## whether the genome is published, and ITS sequences, if published
-mycocosm <- read.delim("/projectnb2/talbot-lab-data/zrwerbin/soil_genome_db/misc_scripts/mycocosm_matching/mycocosm_its.csv", sep = ",")
+mycocosm <- read.delim("/projectnb2/talbot-lab-data/Katies_data/picrust_for_fungi_package/data/mycocosm_database.csv", sep = ",")
 mycocosm$species <- gsub(pattern=' ', replacement='_', mycocosm$species)
 mycocosm <- mycocosm[which(mycocosm$is_published == "Y"),]
 

@@ -1,20 +1,21 @@
-# Pull ITS file from NCBI
+args <- commandArgs(trailingOnly = TRUE)
 
-#wget https://ftp-ncbi-nlm-nih-gov.ezproxy.bu.edu/refseq/TargetedLoci/Fungi/fungi.ITS.fna.gz
-#unzip fungi.ITS.fna.gz
+fungi_its_fna <- args[1] #NCBI ITS database from NCBI, variable name its
+mycocosm <- args[2] #Mycocosm database, variable name mycocosm
+data_path <- args[3] #Path to Data Directory, variable name dataDir
 
 library(data.table)
 library(Biostrings)
 library(tidyverse)
 
 # Read in ITS loci downloaded from NCBI ftp site (above)
-its_sequences_in <- readDNAStringSet("/projectnb2/talbot-lab-data/zrwerbin/soil_genome_db/misc_scripts/mycocosm_matching/fungi.ITS.fna")
+its_sequences_in <- readDNAStringSet(fungi_its_fna)
 its_df <- data.frame(seq_name = names(its_sequences_in), sequence = paste(its_sequences_in)) %>%
   separate(seq_name, sep = "^\\S*\\K\\s+", into=c("ID","organism_name")) # separate at first space
 
 # Read in Mycocosm-published list (downloaded manually from site)
-mycocosm_in <- read_csv("/projectnb2/talbot-lab-data/zrwerbin/soil_genome_db/fungal_genomes/mycocosm_unfiltered_list.txt",
-                        col_names = c("row", "organism_name", "portal", "NCBI_TaxID", "assembly length", "gene_count", "is_public", "is_published", "is_superseded","superseded by", "publications", "pubmed_id","doi_id"), skip = 1)
+mycocosm_in <- read_csv(mycocosm,
+                        col_names = c("x","row", "organism_name", "portal", "NCBI_TaxID", "assembly length", "gene_count", "is_public", "is_published", "is_superseded","superseded by", "publications", "pubmed_id","doi_id", "filename"), skip = 1)
 
 
 # Reformat names in both dataframes to match
@@ -73,4 +74,4 @@ mycocosm_in$genus = word(mycocosm_in$species, 1, 1)
 its_genus_subset = its_df %>% filter(genus %in% mycocosm_in$genus)
 nr_acc_its <- unique(its_genus_subset$ID) %>% unique() %>%  paste(sep="", collapse="\n")
 
-writeLines(nr_acc_its, "/projectnb/talbot-lab-data/Katies_data/picrust_for_fungi_package/nr_acc_its.txt")
+writeLines(nr_acc_its, paste0(data_path,"/nr_acc_its.txt"))
