@@ -4,9 +4,6 @@ fungi_its_fna <- args[1] #NCBI ITS database from NCBI, variable name its
 mycocosm <- args[2] #Mycocosm database, variable name mycocosm
 data_path <- args[3] #Path to Data Directory, variable name dataDir
 
-fungi_its_fna <- "data/fungi.ITS.fna"
-data_path <- "data"
-
 library(data.table)
 library(Biostrings)
 library(tidyverse)
