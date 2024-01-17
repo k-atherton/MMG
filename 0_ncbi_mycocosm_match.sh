@@ -13,10 +13,7 @@
 #$ -j y
 
 # Specify the output file name
-#$ -o NCBI_Myco_$(date +"%C%y%m%d").qlog
-
-# Use SGE_TASK_ID env variable to select appropriate input file from bash array
-# Bash array index starts from 0, so need to subtract one from SGE_TASK_ID value
+#$ -o NCBI_Myco.qlog
 
 # Keep track of information related to the current job
 echo "=========================================================="
@@ -27,7 +24,7 @@ echo "=========================================================="
 
 # Move to Data Directory
 cwd=$(pwd)
-functionDir=/projectnb/talbot-lab-data/Katies_data/picrust_for_fungi_package/functions
+functionDir=/projectnb/talbot-lab-data/Katies_data/picrust_for_fungi_package/download_scripts
 dataDir=/projectnb/talbot-lab-data/Katies_data/picrust_for_fungi_package/data
 cd $dataDir
 
