@@ -27,6 +27,7 @@ echo "=========================================================="
 
 # Move to Data Directory
 cwd=$(pwd)
+functionDir=/projectnb/talbot-lab-data/Katies_data/picrust_for_fungi_package/functions
 dataDir=/projectnb/talbot-lab-data/Katies_data/picrust_for_fungi_package/data
 cd $dataDir
 
@@ -40,19 +41,18 @@ echo "=========================================================="
 
 # Download Mycocosm database
 # Need dplyr R library
-cd $cwd
+cd $functionDir
 echo "DOWNLOADING MYCOCOSM DATABASE"
 module load R
-Rscript get_mycocosm_database.R ${dataDir}
+Rscript 1_get_mycocosm_database.R ${dataDir}
 # Mycocosm database location
 mycocosm=${dataDir}/mycocosm_database.csv
 echo "=========================================================="
 
 # Pull the ITS refseq from the database with R script
 # Need data.table, Biostrings, and tidyverse R libraries
-cd $cwd
 echo "PULLING ITS REFSEQ FROM NCBI DATABASE"
-Rscript get_refseq_its.R ${its} ${mycocosm} ${dataDir}
+Rscript 2_get_refseq_its.R ${its} ${mycocosm} ${dataDir}
 echo "=========================================================="
 
 # Download the NCBI Tax IDs from the nucleotide accessions for the NCBI ITS sequences
@@ -80,7 +80,7 @@ echo "=========================================================="
 echo "MATCHING ITS SEQUENCES TO MYCOCOSM TAXA"
 # Match ITS to Mycocosm
 # Need tidyverse R library
-cd $cwd
-Rscript match_its_to_mycocosm.R ${itsacc} ${mycocosm} ${dataDir}
+cd $functionDir
+Rscript 3_match_its_to_mycocosm.R ${itsacc} ${mycocosm} ${dataDir}
 echo "=========================================================="
 echo "DONE."
