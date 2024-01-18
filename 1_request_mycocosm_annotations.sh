@@ -28,14 +28,14 @@ scriptDir=${cwd}/mycocosm_request_scripts
 cd $scriptDir
 
 # Set path to your file where your list of fungal taxa in your dataset is stored
-fungalTax=/projectnb/talbot-lab-data/Katies_data/Street_Trees/dada2_output/ITS_NR1_trunc/ST_ITS_NR1_ASV_w_tax_20240115.csv
+fungalTax=$1
 
 # Set path to Myococosm/ITS dataset created in step 0
 mycocosm=${cwd}/data/mycocosm_its_merge.csv
 
 # Set Mycocosm Username and Password
-username=katherto@bu.edu
-password=W2d!MfPs4TnU-5b
+username=$2
+password=$3
 
 # Run R script to write the request
 echo "Running Request Script"

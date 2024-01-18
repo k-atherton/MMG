@@ -24,8 +24,8 @@ echo "=========================================================="
 
 # Move to Data Directory
 cwd=$(pwd)
-functionDir=/projectnb/talbot-lab-data/Katies_data/picrust_for_fungi_package/download_scripts
-dataDir=/projectnb/talbot-lab-data/Katies_data/picrust_for_fungi_package/data
+functionDir=${cwd}/download_scripts
+dataDir=${cwd}/data
 cd $dataDir
 
 # Download NCBI fungi ITS database
@@ -72,6 +72,7 @@ echo
 done > its_acc_taxids.txt
 
 itsacc=${dataDir}/its_acc_taxids.txt
+
 echo "=========================================================="
 
 echo "MATCHING ITS SEQUENCES TO MYCOCOSM TAXA"
