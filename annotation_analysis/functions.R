@@ -89,18 +89,17 @@ normalize_genome_count <- function(gene_count_dat){
   return(gene_count_dat)
 }
 
-average_genus <- function(gene_count_dat, genera){
-  data_t <- as.data.frame(t(gene_count_dat))
-  data_t$Genus <- genera
-  
+average_taxa <- function(data_t, taxa, colname){
   data_average <- as.data.frame(matrix(ncol = (ncol(data_t) - 1), 
-                                       nrow = length(unique(genera))))
-  colnames(data_average) <- rownames(gene_count_dat)
-  rownames(data_average) <- unique(genera)
+                                       nrow = length(taxa)))
+  colnames(data_average) <- colnames(data_t)[1:(ncol(data_t)-2)]
+  rownames(data_average) <- taxa
+  
+  index <- which(colnames(data_t) == colname)
   
   for(i in 1:nrow(data_average)){
     genus <- rownames(data_average)[i]
-    rows <- data_t[which(data_t$Genus == genus), c(1:nrow(gene_count_dat))]
+    rows <- data_t[which(data_t[,index] == genus), c(1:(ncol(data_t)-2))]
     average <- colSums(rows)/nrow(rows)
     data_average[i,] <- average
   }
