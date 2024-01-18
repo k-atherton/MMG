@@ -3,10 +3,10 @@ This repository aims to replicate the functionality of PICRUSt for fungi by usin
 To use this pipeline, you must have a Joint Genome Institute account. If you do not have one, please make one here: https://contacts.jgi.doe.gov/registration/new?_gl=1*103eu34*_ga*NTA1MTgxMjkuMTcwNTM1NTY1MA..*_ga_YBLMHYR3C2*MTcwNTUyNTg3OC4zLjAuMTcwNTUyNTg3OC4wLjAuMA..
 
 # Workflow
-## Download the NCBI ITS sequence database and the Mycocosm list of available fungal genomes
+## STEP 0: Download the NCBI ITS sequence database and the Mycocosm list of available fungal genomes
 **Filename: 0\_ncbi\_mycocosm\_match.sh**
-* Required input files: none
-* Required modules: R, requires libraries: dplyr, data.table. Biostrings, & tidyverse
+* Required inputs: path to **download_scripts** directory, path to **data** directory.
+* Required modules: R, required libraries: dplyr, data.table. Biostrings, & tidyverse
 * Outputs:
   * fungi.ITS.fna : the NCBI fungi ITS database
   * mycocosm_database.csv : the list of available fungal genomes on Mycocosm
@@ -18,3 +18,16 @@ To use this pipeline, you must have a Joint Genome Institute account. If you do 
 Use this file to download the most recent version of the NCBI ITS sequence database and the list of fungal genomes available on Mycocosm and match the NCBI data to the Mycocosm data. This step may take a couple hours. Skip this step if you already have the mycocosm_its_merge.csv. 
 
 Run this file with the command **qsub 0_\ncbi\_mycocosm\_match.sh**.
+
+## STEP 1: Request the genome annotation files from Mycocosm
+**Filename: 1\_request\_mycocosm\_annotations.sh**
+* Required inputs:
+ * path to **mycocosm\_request\_scripts** directory
+ * path to file with a list of fungal taxa in dataset (see below for formatting requirements)
+ * path to **mycocosm_its_merge.csv** file produced in Step 0
+ * JGI username
+ * JGI password.
+* Required modules: R, required library: readr
+* Outputs:
+ * mycocosm_download_scc_command.sh : a file with commands to request the genome annotation files for the taxa in your dataset from Mycocosm. This file is run immediately after being produced.
+ * a link to Mycocosm : output when mycocosm_download_scc_command.sh is run, links to the data download. If you have many taxa and/or if your files are stored on tapes by Mycocosm, the link may say "Your request is being processed." You will receive an email from Mycocosm when your data is ready to download. This may take a few hours. 
