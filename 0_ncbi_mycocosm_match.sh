@@ -26,6 +26,12 @@ echo "=========================================================="
 cwd=$(pwd)
 functionDir=${cwd}/download_scripts
 dataDir=${cwd}/data
+
+if [ ! -d "$dataDir" ]; then
+  mkdir data
+  echo "Creating data directory."
+fi
+
 cd $dataDir
 
 # Download NCBI fungi ITS database
