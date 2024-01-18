@@ -1,1 +1,1 @@
-mv */Annotation/Mycocosm/Annotation/Filtered_Models___best__/Functional_Annotations/GO/* ../GO_Annotations/
+mv $1/Annotation/Mycocosm/Annotation/Filtered_Models___best__/Functional_Annotations/GO/* ./mycocosm_annotations/
