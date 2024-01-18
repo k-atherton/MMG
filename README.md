@@ -5,7 +5,7 @@ To use this pipeline, you must have a Joint Genome Institute account. If you do 
 # Workflow
 ## STEP 0: Download the NCBI ITS sequence database and the Mycocosm list of available fungal genomes
 **Filename: 0\_ncbi\_mycocosm\_match.sh**
-* Required inputs: path to **download_scripts** directory, path to **data** directory.
+* Required inputs: none
 * Required modules: R, required libraries: dplyr, data.table. Biostrings, & tidyverse
 * Outputs:
   * fungi.ITS.fna : the NCBI fungi ITS database
@@ -22,12 +22,14 @@ Run this file with the command **qsub 0_\ncbi\_mycocosm\_match.sh**.
 ## STEP 1: Request the genome annotation files from Mycocosm
 **Filename: 1\_request\_mycocosm\_annotations.sh**
 * Required inputs:
- * path to **mycocosm\_request\_scripts** directory
  * path to file with a list of fungal taxa in dataset (see below for formatting requirements)
- * path to **mycocosm_its_merge.csv** file produced in Step 0
  * JGI username
  * JGI password.
 * Required modules: R, required library: readr
 * Outputs:
  * mycocosm_download_scc_command.sh : a file with commands to request the genome annotation files for the taxa in your dataset from Mycocosm. This file is run immediately after being produced.
- * a link to Mycocosm : output when mycocosm_download_scc_command.sh is run, links to the data download. If you have many taxa and/or if your files are stored on tapes by Mycocosm, the link may say "Your request is being processed." You will receive an email from Mycocosm when your data is ready to download. This may take a few hours. 
+ * a link to Mycocosm : output when mycocosm_download_scc_command.sh is run, links to the data download. If you have many taxa and/or if your files are stored on tapes by Mycocosm, the link may say "Your request is being processed." You will receive an email from Mycocosm when your data is ready to download. This may take a few hours.
+
+Use this file to request the genome annotation files from Mycocosm. Currently, this requests the GO annotations from only the published fungal genomes on Mycocosm where there is a species or genus=-level match with taxa in your dataset. The file with fungal taxa in your dataset must be a csv with column names "species" and "genus". The "species" column must contain the full genus and species name with an underscore between them, the first letter of the genus must be capitalized and the species must be lowercase (e.g. *Amanita_muscaria*). The "genus" column must only contain the genus name with the first letter capitalized (e.g. *Amanita*).
+
+Run this file with the command **qsub 1\_request\_mycocosm\_annotations.sh <path/to/taxa/file> <username> <password>**. 
