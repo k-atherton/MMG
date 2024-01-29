@@ -28,12 +28,26 @@ data_w_genes$taxa <- taxa
 ### AGGREGATE COUNTS FOR DUPLICATE TAXA ######################################
 data_w_genes_unique <- aggregate(.~taxa, data_w_genes, sum)
 
-# this dataframe has the reads of the species/genera that we have gene counts
-# for in each sample
-
-### 
-# now we need to multiply the counts by the gene counts
 ### APPEND GENUS AND SPECIES GENE COUNT DATAFRAMES ###########################
 genus_w_data <- genus_count[which(row.names(genus_count) %in% data_w_genes_unique$taxa),]
 species_w_data <- species_count[which(row.names(species_count) %in% data_w_genes_unique$taxa),]
 genes_w_data <- rbind(species_w_data, genus_w_data) 
+genes_w_data <- genes_w_data[ order(row.names(genes_w_data)), ]
+
+### MAKE FINAL DATAFRAME #####################################################
+gene_count_per_sample <- data.frame(matrix(NA, nrow = ncol(genes_w_data), ncol = (ncol(data_w_genes_unique)-1)))
+rownames(gene_count_per_sample) <- colnames(genes_w_data)
+colnames(gene_count_per_sample) <- colnames(data_w_genes_unique)[2:(ncol(data_w_genes_unique))]
+
+for(i in 1:nrow(gene_count_per_sample)){ # gene
+  gene <- row.names(gene_count_per_sample)[i]
+  gene_count <- genes_w_data[,which(colnames(genes_w_data) == gene)]
+  for(j in 1:ncol(gene_count_per_sample)){ # sample
+    sample <- colnames(gene_count_per_sample)[j]
+    taxa_count <- data_w_genes_unique[,which(colnames(data_w_genes_unique) == sample)]
+    total <- gene_count * taxa_count
+    gene_count_per_sample[i,j] <- sum(total)
+  }
+}
+
+write.csv(gene_count_per_sample, "data/gene_count_per_sample.csv")
