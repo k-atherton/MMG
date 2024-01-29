@@ -1,0 +1,39 @@
+library(dplyr)
+
+### READ IN DATA AND AVERAGE GENE COUNTS #####################################
+data <- read.csv("/projectnb/talbot-lab-data/Katies_data/Street_Trees/dada2_output/ITS_NR1_trunc/ST_ITS_NR1_ASV_w_tax_20240115.csv")
+species_count <- read.delim("data/GO_average_bySpecies.csv", sep = ",", row.names = 1)
+genus_count <- read.delim("data/GO_average_byGenus.csv", sep = ",", row.names = 1)
+
+### ONLY TAKE SPECIES AND GENERA THAT WE HAVE GENES FOR ######################
+data_w_species <- data[which(data$Species %in% row.names(species_count)),]
+data_w_genus <- data[which(data$Genus %in% row.names(genus_count)),]
+
+### REMOVE SPECIES THAT WE HAVE MATCH FOR FROM GENUS COUNT ###################
+data_w_genus <- data_w_genus[-data_w_species$X,]
+
+### ADJUST GENUS AND SPECIES DATAFRAMES FOR APPENDING ########################
+data_w_genus <- data_w_genus[,-1]
+data_w_species <- data_w_species[,-1]
+data_w_genus$taxa <- data_w_genus$Genus
+data_w_species$taxa <- data_w_species$Species
+
+### APPEND DATAFRAMES ########################################################
+data_w_genes <- rbind(data_w_genus, data_w_species) 
+taxa <- data_w_genes$taxa
+data_w_genes <- select_if(data_w_genes, is.numeric)
+cols <- ncol(data_w_genes)
+data_w_genes$taxa <- taxa
+
+### AGGREGATE COUNTS FOR DUPLICATE TAXA ######################################
+data_w_genes_unique <- aggregate(.~taxa, data_w_genes, sum)
+
+# this dataframe has the reads of the species/genera that we have gene counts
+# for in each sample
+
+### 
+# now we need to multiply the counts by the gene counts
+### APPEND GENUS AND SPECIES GENE COUNT DATAFRAMES ###########################
+genus_w_data <- genus_count[which(row.names(genus_count) %in% data_w_genes_unique$taxa),]
+species_w_data <- species_count[which(row.names(species_count) %in% data_w_genes_unique$taxa),]
+genes_w_data <- rbind(species_w_data, genus_w_data) 
