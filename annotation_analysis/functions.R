@@ -90,7 +90,7 @@ normalize_genome_count <- function(gene_count_dat){
 }
 
 average_taxa <- function(data_t, taxa, colname){
-  data_average <- as.data.frame(matrix(ncol = (ncol(data_t) - 1), 
+  data_average <- as.data.frame(matrix(ncol = (ncol(data_t) - 2), 
                                        nrow = length(taxa)))
   colnames(data_average) <- colnames(data_t)[1:(ncol(data_t)-2)]
   rownames(data_average) <- taxa

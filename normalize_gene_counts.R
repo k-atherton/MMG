@@ -133,18 +133,9 @@ for(i in 1:nrow(gene_count_t)){
 ### AVERAGE GENE COUNTS FOR SPECIES ##########################################
 species <- unique(gene_count_t$Species)
 average_species_count <- average_taxa(gene_count_t, species, "Species")
+write.csv(average_species_count, file = "data/GO_average_bySpecies.csv")
 
-
-data_average <- as.data.frame(matrix(ncol = (ncol(gene_count_t) - 2), 
-                                     nrow = length(species)))
-colnames(data_average) <- colnames(gene_count_t)[1:(ncol(gene_count_t)-2)]
-rownames(data_average) <- unique(species)
-
-index <- which(colnames(gene_count_t) == "Species")
-
-for(i in 1:nrow(data_average)){
-  genus <- rownames(data_average)[i]
-  rows <- gene_count_t[which(gene_count_t[,index] == genus), c(1:(ncol(gene_count_t)-2))]
-  average <- colSums(rows)/nrow(rows)
-  data_average[i,] <- average
-}
+### AVERAGE GENE COUNTS FOR GENERA ###########################################
+genera <- unique(gene_count_t$Genus)
+average_genus_count <- average_taxa(gene_count_t, genera, "Genus")
+write.csv(average_genus_count, file = "data/GO_average_byGenus.csv")
