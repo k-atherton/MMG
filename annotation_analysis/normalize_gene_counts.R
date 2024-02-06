@@ -1,4 +1,4 @@
-source("annotation_analysis/functions.R")
+source("functions.R")
 
 ### SET PATH TO WHERE ALL ANNOTATIONN FILES FOR A SINGLE TYPE OF ANNOTATION ARE LOCATED
 path <- "mycocosm_annotations"
