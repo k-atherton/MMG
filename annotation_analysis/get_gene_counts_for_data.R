@@ -9,17 +9,19 @@ species_count <- read.delim("data/GO_average_bySpecies.csv", sep = ",", row.name
 genus_count <- read.delim("data/GO_average_byGenus.csv", sep = ",", row.names = 1)
 
 ### ONLY TAKE SPECIES AND GENERA THAT WE HAVE GENES FOR ######################
-data_w_species <- data[which(data$Species %in% row.names(species_count)),]
-data_w_genus <- data[which(data$Genus %in% row.names(genus_count)),]
+data_w_species <- data[which(data$species %in% row.names(species_count)),]
+data_w_genus <- data[which(data$genus %in% row.names(genus_count)),]
 
 ### REMOVE SPECIES THAT WE HAVE MATCH FOR FROM GENUS COUNT ###################
-data_w_genus <- data_w_genus[-data_w_species$X,]
+if(nrow(data_w_species) > ){
+  data_w_genus <- data_w_genus[-data_w_species$X,]
+}
 
 ### ADJUST GENUS AND SPECIES DATAFRAMES FOR APPENDING ########################
 data_w_genus <- data_w_genus[,-1]
 data_w_species <- data_w_species[,-1]
-data_w_genus$taxa <- data_w_genus$Genus
-data_w_species$taxa <- data_w_species$Species
+data_w_genus$taxa <- data_w_genus$genus
+data_w_species$taxa <- data_w_species$species
 
 ### APPEND DATAFRAMES ########################################################
 data_w_genes <- rbind(data_w_genus, data_w_species) 
