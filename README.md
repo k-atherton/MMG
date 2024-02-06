@@ -32,7 +32,7 @@ Run this script with the command **qsub 0_\ncbi\_mycocosm\_match.sh**
 
 Use this script to request the genome annotation files from Mycocosm. Currently, this requests the GO annotations from only the published fungal genomes on Mycocosm where there is a species or genus=-level match with taxa in your dataset. The file with fungal taxa in your dataset must be a csv with column names "species" and "genus". The "species" column must contain the full genus and species name with an underscore between them, the first letter of the genus must be capitalized and the species must be lowercase (e.g. *Amanita_muscaria*). The "genus" column must only contain the genus name with the first letter capitalized (e.g. *Amanita*).
 
-Run this script with the command **qsub 1\_request\_mycocosm\_annotations.sh <path/to/taxa/file> <MycoCosm username> <MycoCosm password>** 
+Run this script with the command **qsub 1\_request\_mycocosm\_annotations.sh <path/to/taxa/file> <MycoCosm \username> <MycoCosm \password>** 
 
 ## STEP 2: Move the annotations to one folder
 **Filename: 2\_move\_annotation\_files.sh**
