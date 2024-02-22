@@ -1,6 +1,6 @@
 This repository aims to replicate the functionality of PICRUSt for fungi by using the JGI's Mycocosm of available gene annotations.
 
-To use this pipeline, you must have a Joint Genome Institute account. If you do not have one, please make one here: https://contacts.jgi.doe.gov/registration/new?_gl=1*103eu34*_ga*NTA1MTgxMjkuMTcwNTM1NTY1MA..*_ga_YBLMHYR3C2*MTcwNTUyNTg3OC4zLjAuMTcwNTUyNTg3OC4wLjAuMA..
+To use this pipeline, you must have a Joint Genome Institute account. If you do not have one, please make one [here](https://contacts.jgi.doe.gov/registration/new?_gl=1*103eu34*_ga*NTA1MTgxMjkuMTcwNTM1NTY1MA..*_ga_YBLMHYR3C2*MTcwNTUyNTg3OC4zLjAuMTcwNTUyNTg3OC4wLjAuMA.).
 
 # Workflow
 ## STEP 0: Download the NCBI ITS sequence database and the Mycocosm list of available fungal genomes
@@ -17,7 +17,7 @@ To use this pipeline, you must have a Joint Genome Institute account. If you do 
  
 Use this script to download the most recent version of the NCBI ITS sequence database and the list of fungal genomes available on Mycocosm and match the NCBI data to the Mycocosm data. This step may take a couple hours. Skip this step if you already have the mycocosm_its_merge.csv. 
 
-Run this script with the command **qsub 0_\ncbi\_mycocosm\_match.sh**
+Run this script with the command <code>qsub 0_\ncbi\_mycocosm\_match.sh</code>
 
 ## STEP 1: Request the genome annotation files from Mycocosm
 **Filename: 1\_request\_mycocosm\_annotations.sh**
@@ -32,7 +32,7 @@ Run this script with the command **qsub 0_\ncbi\_mycocosm\_match.sh**
 
 Use this script to request the genome annotation files from Mycocosm. Currently, this requests the GO annotations from only the published fungal genomes on Mycocosm where there is a species or genus=-level match with taxa in your dataset. The file with fungal taxa in your dataset must be a csv with column names "species" and "genus". The "species" column must contain the full genus and species name with an underscore between them, the first letter of the genus must be capitalized and the species must be lowercase (e.g. *Amanita_muscaria*). The "genus" column must only contain the genus name with the first letter capitalized (e.g. *Amanita*).
 
-Run this script with the command **qsub 1\_request\_mycocosm\_annotations.sh <path/to/taxa/file> <MycoCosm \username> <MycoCosm \password>** 
+Run this script with the command <code>qsub 1\_request\_mycocosm\_annotations.sh <path/to/taxa/file> <MycoCosm \username> <MycoCosm \password></code>
 
 ## STEP 2: Move the annotations to one folder
 **Filename: 2\_move\_annotation\_files.sh**
@@ -44,7 +44,7 @@ Run this script with the command **qsub 1\_request\_mycocosm\_annotations.sh <pa
  
 Use this script to move the files from Mycocosm into one folder within this directory. When you receive the Mycocosm data download, it gives you each file in a number of subdirectories. To make things easier for downstream usage of these files, input the path to the folder that contains the folders named after the Mycocosm portal names for each genome. 
 
-Run this script with the command **sh 2\_move\_annotation\_files.sh <path_to_annotations_directory>**
+Run this script with the command <code>sh 2\_move\_annotation\_files.sh <path_to_annotations_directory></code>
 
 ## STEP 3: Calculate gene counts per sample
 **Filename: 3\_annotation\_analysis.sh**
@@ -58,6 +58,6 @@ Run this script with the command **sh 2\_move\_annotation\_files.sh <path_to_ann
   * average\_byGenus.csv : a table of normalized gene numbers averaged for each genus pulled from Mycocosm.
   * gene\_count\_per\_sample.csv : a table of the normalized gene numbers for each sample in your dataset.
  
-Use this script to create the final table of normalized gene counts per sample in your dataset. This csv is now useful for downstream analysis to understand how functional gene abundances, rather than fungal functional group abundances, shift with the variables tested by your dataset. 
+Use this script to create the final table of normalized gene counts per sample in your dataset. The script adjusts your raw ITS sequence count number by ITS copy number based on the dataset provided in Data S1 of [Bradford et al. 2023](https://www.sciencedirect.com/science/article/pii/S2589004223013949?via%3Dihub). This csv is now useful for downstream analysis to understand how functional gene abundances, rather than fungal functional group abundances, shift with the variables tested by your dataset. 
 
-Run this script with the command **sh 3\_annotation\_analysis.sh <path_to_OTU_table.csv>**
+Run this script with the command <code>sh 3\_annotation\_analysis.sh <path_to_OTU_table.csv></code>
