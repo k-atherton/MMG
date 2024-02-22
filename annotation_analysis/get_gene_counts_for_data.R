@@ -7,19 +7,18 @@ path <- args[1] #path to ASV table with taxonomy csv file, variable name data
 data <- read.csv(path)
 species_count <- read.delim("data/GO_average_bySpecies.csv", sep = ",", row.names = 1)
 genus_count <- read.delim("data/GO_average_byGenus.csv", sep = ",", row.names = 1)
+its_copy <- read.csv("ITS_copy_Bradshaw2023.csv", row.names = 1)
 
 ### ONLY TAKE SPECIES AND GENERA THAT WE HAVE GENES FOR ######################
 data_w_species <- data[which(data$species %in% row.names(species_count)),]
 data_w_genus <- data[which(data$genus %in% row.names(genus_count)),]
 
 ### REMOVE SPECIES THAT WE HAVE MATCH FOR FROM GENUS COUNT ###################
-if(nrow(data_w_species) > ){
-  data_w_genus <- data_w_genus[-data_w_species$X,]
+if(nrow(data_w_species) > 0){
+  data_w_genus <- data_w_genus[-as.numeric(rownames(data_w_species)),]
 }
 
 ### ADJUST GENUS AND SPECIES DATAFRAMES FOR APPENDING ########################
-data_w_genus <- data_w_genus[,-1]
-data_w_species <- data_w_species[,-1]
 data_w_genus$taxa <- data_w_genus$genus
 data_w_species$taxa <- data_w_species$species
 
@@ -32,6 +31,17 @@ data_w_genes$taxa <- taxa
 
 ### AGGREGATE COUNTS FOR DUPLICATE TAXA ######################################
 data_w_genes_unique <- aggregate(.~taxa, data_w_genes, sum)
+
+### ADJUST COUNTS BY ITS COPY NUMBER #########################################
+its_copy <- its_copy[which(its_copy$taxa %in% data_w_genes_unique$taxa),]
+
+for(i in 1:nrow(data_w_genes_unique)){
+  taxa <- data_w_genes_unique$taxa[i]
+  if(taxa %in% its_copy$taxa){
+    n <- its_copy$ITS.Copies[which(its_copy$taxa == taxa)]
+    data_w_genes_unique[i,2:ncol(data_w_genes_unique)] <- data_w_genes_unique[i,2:ncol(data_w_genes_unique)]/n
+  }
+}
 
 ### APPEND GENUS AND SPECIES GENE COUNT DATAFRAMES ###########################
 genus_w_data <- genus_count[which(row.names(genus_count) %in% data_w_genes_unique$taxa),]
