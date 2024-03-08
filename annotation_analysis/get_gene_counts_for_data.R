@@ -33,12 +33,19 @@ data_w_genes$taxa <- taxa
 data_w_genes_unique <- aggregate(.~taxa, data_w_genes, sum)
 
 ### ADJUST COUNTS BY ITS COPY NUMBER #########################################
-its_copy <- its_copy[which(its_copy$taxa %in% data_w_genes_unique$taxa),]
+its_copy_exact <- its_copy[which(its_copy$taxa %in% data_w_genes_unique$taxa),]
+taxa_genus <- sapply(strsplit(data_w_genes_unique$taxa,"_"), `[`, 1)
+its_copy_genus <- its_copy[which(its_copy$taxa %in% taxa_genus),]
 
 for(i in 1:nrow(data_w_genes_unique)){
   taxa <- data_w_genes_unique$taxa[i]
-  if(taxa %in% its_copy$taxa){
+  genus <- strsplit(taxa, "_")[[1]][1]
+  if(taxa %in% its_copy_exact$taxa){
     n <- its_copy$ITS.Copies[which(its_copy$taxa == taxa)]
+    data_w_genes_unique[i,2:ncol(data_w_genes_unique)] <- data_w_genes_unique[i,2:ncol(data_w_genes_unique)]/n
+  }
+  else if(genus %in% its_copy_genus$taxa){
+    n <- its_copy$ITS.Copies[which(its_copy$taxa == genus)]
     data_w_genes_unique[i,2:ncol(data_w_genes_unique)] <- data_w_genes_unique[i,2:ncol(data_w_genes_unique)]/n
   }
 }
