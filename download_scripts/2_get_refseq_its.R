@@ -17,7 +17,7 @@ write_csv(its_df[,c(1,3)], paste0(data_path, "/its_df.csv"))
 
 # Read in Mycocosm-published list (downloaded manually from site)
 mycocosm_in <- read_csv(mycocosm,
-                        col_names = c("x","row", "organism_name", "portal", "NCBI_TaxID", "assembly length", "gene_count", "is_public", "is_published", "is_superseded","superseded by", "publications", "pubmed_id","doi_id", "filename"), skip = 1)
+                        col_names = c("row", "organism_name", "portal", "NCBI_TaxID", "assembly length", "gene_count", "is_restricted", "is_public", "is_published", "is_superseded","superseded by", "publications", "pubmed_id","doi_id", "filename"), skip = 1)
 
 
 # Reformat names in both dataframes to match
