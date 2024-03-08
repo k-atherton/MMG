@@ -15,7 +15,7 @@ nr_taxid_mapping = read_tsv(its_acc,
 
 # Read in Mycocosm-published list (downloaded manually from site)
 mycocosm_in <- read_csv(mycocosm,
-                        col_names = c("x", "row", "organism_name", "portal", "NCBI_TaxID", "assembly length", "gene_count", "is_public", "is_published", "is_superseded","superseded by", "publications", "pubmed_id","doi_id", "filename"), skip = 1)
+                        col_names = c("row", "organism_name", "portal", "NCBI_TaxID", "assembly length", "gene_count", "is_restricted", "is_public", "is_published", "is_superseded","superseded by", "publications", "pubmed_id","doi_id", "filename"), skip = 1)
 
 # Mycocosm reformat
 mycocosm_in$organism_name = gsub('\\"',"",mycocosm_in$organism_name)
