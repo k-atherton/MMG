@@ -37,10 +37,13 @@ mycocosm=${cwd}/data/mycocosm_its_merge.csv
 username=$2
 password=$3
 
+# Set Annotation Type
+annotation=$4
+
 # Run R script to write the request
 echo "Running Request Script"
 module load R
-Rscript write_request_script.R ${mycocosm} ${fungalTax} ${scriptDir} ${username} ${password}
+Rscript write_request_script.R ${mycocosm} ${fungalTax} ${scriptDir} ${username} ${password} ${annotation}
 echo "=========================================================="
 
 echo "Requesting data from Mycocosm"
