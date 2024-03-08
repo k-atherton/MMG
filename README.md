@@ -17,7 +17,7 @@ To use this pipeline, you must have a Joint Genome Institute account. If you do 
  
 Use this script to download the most recent version of the NCBI ITS sequence database and the list of fungal genomes available on Mycocosm and match the NCBI data to the Mycocosm data. This step may take a couple hours. Skip this step if you already have the mycocosm_its_merge.csv. 
 
-Run this script with the command <code>qsub 0_\ncbi\_mycocosm\_match.sh</code>
+Run this script with the command <code>qsub 0_ncbi\_mycocosm\_match.sh</code>
 
 ## STEP 1: Request the genome annotation files from Mycocosm
 **Filename: 1\_request\_mycocosm\_annotations.sh**
