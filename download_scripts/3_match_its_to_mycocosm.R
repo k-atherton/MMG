@@ -4,10 +4,6 @@ its_acc <- args[1] #ITS tax ids from NCBI ITS sequences, variable name itsacc
 mycocosm <- args[2] #Mycocosm database, variable name mycocosm
 data_path <- args[3] #Path to Data Directory, variable name dataDir
 
-its_acc <- "/projectnb/talbot-lab-data/Katies_data/picrust_ccase/picrust-for-fungi/data/its_acc_taxids.txt" #ITS tax ids from NCBI ITS sequences, variable name itsacc
-mycocosm <- args[2] #Mycocosm database, variable name mycocosm
-data_path <- args[3] #Path to Data Directory, variable name dataDir
-
 library(tidyverse)
 nr_taxid_mapping = read_tsv(its_acc,
                             col_names = c("NCBI_NR_accession","NCBI_TaxID"))

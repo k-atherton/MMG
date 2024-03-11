@@ -19,7 +19,9 @@ mycocosm <- mycocosm[which(mycocosm$is_published == "Y"),]
 data <- readr::read_csv(fungi)
 data_w_mycocosm <- data[which(data$Species %in% mycocosm$species),]
 data_w_mycocosm_genus <- data[which(data$Genus %in% mycocosm$genus),]
-data_w_mycocosm_genus <- data_w_mycocosm_genus[-which(data_w_mycocosm_genus$Species %in% data_w_mycocosm$Species),]
+if("Species" %in% colnames(data)){
+  data_w_mycocosm_genus <- data_w_mycocosm_genus[-which(data_w_mycocosm_genus$Species %in% data_w_mycocosm$Species),]
+}
 
 mycocosm_w_data <- mycocosm[which(mycocosm$genus %in% data_w_mycocosm_genus$Genus),]
 mycocosm_w_species <- mycocosm[which(mycocosm$species %in% data_w_mycocosm$Species),]
