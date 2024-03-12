@@ -66,8 +66,13 @@ for(i in 1:nrow(data_w_genes_unique)){
 
 ### APPEND GENUS AND SPECIES GENE COUNT DATAFRAMES ###########################
 genus_w_data <- genus_count[which(row.names(genus_count) %in% data_w_genes_unique$taxa),]
-species_w_data <- species_count[which(row.names(species_count) %in% data_w_genes_unique$taxa),]
-genes_w_data <- rbind(species_w_data, genus_w_data) 
+if("species" %in% colnames(data)){
+  species_w_data <- species_count[which(row.names(species_count) %in% data_w_genes_unique$taxa),]
+  genes_w_data <- rbind(species_w_data, genus_w_data) 
+} else{
+  genes_w_data <- genus_w_data
+}
+
 genes_w_data <- genes_w_data[ order(row.names(genes_w_data)), ]
 
 ### MAKE FINAL DATAFRAME #####################################################
