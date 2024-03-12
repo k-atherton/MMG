@@ -5,25 +5,37 @@ path <- args[1] #path to ASV table with taxonomy csv file, variable name data
 
 ### READ IN DATA AND AVERAGE GENE COUNTS #####################################
 data <- read.csv(path)
-species_count <- read.delim("data/GO_average_bySpecies.csv", sep = ",", row.names = 1)
-genus_count <- read.delim("data/GO_average_byGenus.csv", sep = ",", row.names = 1)
+species_count <- read.delim("data/annotation_average_bySpecies.csv", sep = ",", row.names = 1)
+genus_count <- read.delim("data/annotation_average_byGenus.csv", sep = ",", row.names = 1)
 its_copy <- read.csv("ITS_copy_Bradshaw2023.csv", row.names = 1)
 
 ### ONLY TAKE SPECIES AND GENERA THAT WE HAVE GENES FOR ######################
-data_w_species <- data[which(data$species %in% row.names(species_count)),]
+if("species" %in% colnames(data)){
+  data_w_species <- data[which(data$species %in% row.names(species_count)),] 
+}
 data_w_genus <- data[which(data$genus %in% row.names(genus_count)),]
 
 ### REMOVE SPECIES THAT WE HAVE MATCH FOR FROM GENUS COUNT ###################
-if(nrow(data_w_species) > 0){
-  data_w_genus <- data_w_genus[-as.numeric(rownames(data_w_species)),]
+if("species" %in% colnames(data)){
+  if(nrow(data_w_species) > 0){
+    data_w_genus <- data_w_genus[-as.numeric(rownames(data_w_species)),]
+  }
 }
 
 ### ADJUST GENUS AND SPECIES DATAFRAMES FOR APPENDING ########################
 data_w_genus$taxa <- data_w_genus$genus
-data_w_species$taxa <- data_w_species$species
+
+if("species" %in% colnames(data)){
+  data_w_species$taxa <- data_w_species$species
+}
 
 ### APPEND DATAFRAMES ########################################################
-data_w_genes <- rbind(data_w_genus, data_w_species) 
+if("species" %in% colnames(data)){
+  data_w_genes <- rbind(data_w_genus, data_w_species) 
+} else{
+  data_w_genes <- data_w_genus 
+}
+
 taxa <- data_w_genes$taxa
 data_w_genes <- select_if(data_w_genes, is.numeric)
 cols <- ncol(data_w_genes)
