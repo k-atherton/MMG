@@ -29,9 +29,7 @@ Run this script with the command <code>qsub 0_ncbi\_mycocosm\_match.sh</code>
 * Required modules: R, required library: readr
 * Outputs:
   * mycocosm_download_scc_command.sh : a file with commands to request the genome annotation files for the taxa in your dataset from Mycocosm. This file is run immediately after being produced.
-  * a link to Mycocosm : output when mycocosm_download_scc_command.sh is run, links to the data download. If you have many taxa and/or if your files are stored on tapes by Mycocosm, the link may say "Your request is being processed." You will receive an email from Mycocosm when your data is ready to download. This may take a few hours.
- 
-You may need to log into the MycoCosm website on a browser before running this script if you are getting "Invalid user ID" errors.
+  * a link to Mycocosm : output when mycocosm_download_scc_command.sh is run, links to the data download. If you have many taxa and/or if your files are stored on tapes by Mycocosm, the link may say "Your request is being processed." You will receive an email from Mycocosm when your data is ready to download. This may take a few hours. If you receive an "Invalid User ID" error when opening this link, log into Mycocosm and open it again.
 
 Use this script to request the genome annotation files from Mycocosm. Currently, this requests the annotations from only the published fungal genomes on Mycocosm where there is a species or genus=-level match with taxa in your dataset. The file with fungal taxa in your dataset must be a csv with column names "species" and "genus". The "species" column must contain the full genus and species name with an underscore between them, the first letter of the genus must be capitalized and the species must be lowercase (e.g. *Amanita_muscaria*). The "genus" column must only contain the genus name with the first letter capitalized (e.g. *Amanita*).
 
@@ -41,13 +39,14 @@ Run this script with the command <code>qsub 1\_request\_mycocosm\_annotations.sh
 **Filename: 2\_move\_annotation\_files.sh**
 * Required inputs:
   * path to directory with Mycocosm annotation files
+  * annotation type (options: GO, KEGG, InterPro, KOG, Signalp)
 * Required modules: none
 * Outputs:
   * moves all files from the folder Mycocosm gives you into one singular folder.
  
 Use this script to move the files from Mycocosm into one folder within this directory. When you receive the Mycocosm data download, it gives you each file in a number of subdirectories. To make things easier for downstream usage of these files, input the path to the folder that contains the folders named after the Mycocosm portal names for each genome.
 
-Run this script with the command <code>sh 2\_move\_annotation\_files.sh <path/to/annotations_directory></code>
+Run this script with the command <code>sh 2\_move\_annotation\_files.sh <path/to/annotations_directory> \<annotation type\></code>
 
 ## STEP 3: Calculate gene counts per sample
 **Filename: 3\_annotation\_analysis.sh**
