@@ -5,7 +5,9 @@ path <- args[1] #path to ASV table with taxonomy csv file, variable name data
 
 ### READ IN DATA AND AVERAGE GENE COUNTS #####################################
 data <- read.csv(path)
-species_count <- read.delim("data/annotation_average_bySpecies.csv", sep = ",", row.names = 1)
+if("species" %in% colnames(data)){
+  species_count <- read.delim("data/annotation_average_bySpecies.csv", sep = ",", row.names = 1) 
+}
 genus_count <- read.delim("data/annotation_average_byGenus.csv", sep = ",", row.names = 1)
 its_copy <- read.csv("ITS_copy_Bradshaw2023.csv", row.names = 1)
 
