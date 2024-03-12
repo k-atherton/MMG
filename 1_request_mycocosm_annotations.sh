@@ -1,14 +1,5 @@
 #!/bin/bash -l
 
-# Set SCC project
-#$ -P talbot-lab-data
-
-# Send an email when the job finishes or if it is aborted (by default no email is sent).
-#$ -m a
-
-# Give job a name
-#$ -N write_myco_request
-
 # Combine output and error files into a single file
 #$ -j y
 
