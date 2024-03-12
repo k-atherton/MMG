@@ -66,3 +66,4 @@ Run this script with the command <code>sh 2\_move\_annotation\_files.sh <path/to
 Use this script to create the final table of normalized gene counts per sample in your dataset. The script adjusts your raw ITS sequence count number by ITS copy number based on the dataset provided in Data S1 of [Bradford et al. 2023](https://www.sciencedirect.com/science/article/pii/S2589004223013949?via%3Dihub). This csv is now useful for downstream analysis to understand how functional gene abundances, rather than fungal functional group abundances, shift with the variables tested by your dataset. 
 
 Run this script with the command <code>sh 3\_annotation\_analysis.sh <path/to/OTU_table.csv> \<annotation type\></code>
+If running on a computing cluster, include commands <code>-P \<project-name\> -N \<job-name></code> and run with command <code>qsub</code>.
