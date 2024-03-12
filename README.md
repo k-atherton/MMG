@@ -52,6 +52,7 @@ Run this script with the command <code>sh 2\_move\_annotation\_files.sh <path/to
 **Filename: 3\_annotation\_analysis.sh**
 * Required inputs:
   * path to OTU/ASV table with taxonomy (must be a csv)
+  * annotation type
 * Required modules: R, required library: dplyr
 * Outputs:
   * annotations\_count\_table.csv : a table of the raw counts of gene numbers for each genome pulled from Mycocosm.
@@ -62,4 +63,4 @@ Run this script with the command <code>sh 2\_move\_annotation\_files.sh <path/to
  
 Use this script to create the final table of normalized gene counts per sample in your dataset. The script adjusts your raw ITS sequence count number by ITS copy number based on the dataset provided in Data S1 of [Bradford et al. 2023](https://www.sciencedirect.com/science/article/pii/S2589004223013949?via%3Dihub). This csv is now useful for downstream analysis to understand how functional gene abundances, rather than fungal functional group abundances, shift with the variables tested by your dataset. 
 
-Run this script with the command <code>sh 3\_annotation\_analysis.sh <path/to/OTU_table.csv></code>
+Run this script with the command <code>sh 3\_annotation\_analysis.sh <path/to/OTU_table.csv> \<annotation type\></code>
