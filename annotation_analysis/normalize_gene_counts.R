@@ -1,4 +1,4 @@
-source("functions.R")
+source("annotation_analysis/functions.R")
 
 args <- commandArgs(trailingOnly = TRUE)
 annotation <- args[1] #annotation type (options: GO, KEGG, InterPro, KOG, Signalp)
