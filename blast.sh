@@ -26,6 +26,10 @@ query=$1
 perc=$2
 
 cwd=$(pwd)
+
+# Set path to data directory
+dataDir=${cwd}/data
+cd ${dataDir}
 module load blast+
 blastn -query ${query} \
           -db mycocosm_its_db \
