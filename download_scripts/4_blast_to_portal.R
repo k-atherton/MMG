@@ -1,5 +1,9 @@
+args <- commandArgs(trailingOnly = TRUE)
+
+data_path <- args[1] #Path to Data Directory, variable name dataDir
+
 # read data
-blast <- read.table("blast_nn.txt")
+blast <- read.table(paste0(data_path,"blast_nn.txt"))
 
 # name columns
 colnames(blast) <- c("ASV_ID", "portal_id", "perc_id", "alignment_length", "mismatches",
@@ -22,4 +26,4 @@ for(i in 1:length(asvs)){
 }
 blast <- blast[keep,]
 
-write.csv(blast, "blast_portal_matches.csv")
+write.csv(blast, paste0(data_path,"blast_portal_matches.csv"))
