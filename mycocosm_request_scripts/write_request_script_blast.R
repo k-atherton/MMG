@@ -12,7 +12,7 @@ print(password)
 ### DATA ######################################
 data <- readr::read_csv(fungi)
 
-to_download <- data$portal
+to_download <- data$portal_id
 to_download <- unique(to_download)
 portals <- paste(to_download, collapse = ",")
 login <- paste0("curl -k 'https://signon.jgi.doe.gov/signon/create' --data-urlencode 'login=",username,"' --data-urlencode 'password=",password,"' -c cookies > /dev/null\n")
