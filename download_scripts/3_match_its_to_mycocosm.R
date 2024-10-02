@@ -1,3 +1,4 @@
+library(seqinr)
 args <- commandArgs(trailingOnly = TRUE)
 
 its_acc <- args[1] #ITS tax ids from NCBI ITS sequences, variable name itsacc
@@ -32,3 +33,4 @@ mycocosm_its_merge = merge(mycocosm_its_merge, its_df, all.x=T)
 mycocosm_its_merge = mycocosm_its_merge[which(mycocosm_its_merge$is_superseded == "N"),]
 
 write.csv(mycocosm_its_merge, paste0(data_path,"/mycocosm_its_merge.csv"))
+write.fasta(as.list(mycocosm_its_merge$sequence),mycocosm_its_merge$portal,paste0(data_path,"/mycocosm_its.fasta")
