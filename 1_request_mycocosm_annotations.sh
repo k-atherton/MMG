@@ -18,21 +18,18 @@ cwd=$(pwd)
 scriptDir=${cwd}/mycocosm_request_scripts
 cd $scriptDir
 
-# Set path to your file where your list of fungal taxa in your dataset or your portal IDs matched by BLAST is stored
-fungalTax=$1
-
 # Set path to Myococosm/ITS dataset created in step 0
 mycocosm=${cwd}/data/mycocosm_its_merge.csv
 
 # Set Mycocosm Username and Password
-username=$2
-password=$3
+username=$1
+password=$2
 
 # Set Annotation Type
-annotation=$4
+annotation=$3
 
 # Blast?
-blast=$5
+blast=$4
 
 if [[ "${blast}" == "Y" ]]; then
    echo "USING BLAST METHOD"
@@ -49,6 +46,8 @@ if [[ "${blast}" == "Y" ]]; then
    echo "Done."
 elif [[ "${blast}" == "N" ]]; then
    echo "USING NAME-MATCHING METHOD"
+   # Set path to your file where your list of fungal taxa in your dataset or your portal IDs matched by BLAST is stored
+   fungalTax=$5
    # Run R script to write the request
    echo "Running Request Script"
    module load R
