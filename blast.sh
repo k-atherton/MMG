@@ -47,6 +47,6 @@ echo "GETTING BEST BLAST MATCH PORTAL ID FOR ITS"
 scriptDir=${cwd}/download_scripts
 
 module load R
-Rscript 4_blast_to_portal.R ${dataDir}/blast_nn.txt ${dataDir}
+Rscript 4_blast_to_portal.R ${dataDir}
 echo "Done."
 
