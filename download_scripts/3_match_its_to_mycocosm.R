@@ -1,4 +1,3 @@
-library(seqinr)
 args <- commandArgs(trailingOnly = TRUE)
 
 its_acc <- args[1] #ITS tax ids from NCBI ITS sequences, variable name itsacc
@@ -6,6 +5,7 @@ mycocosm <- args[2] #Mycocosm database, variable name mycocosm
 data_path <- args[3] #Path to Data Directory, variable name dataDir
 
 library(tidyverse)
+library(seqinr)
 nr_taxid_mapping = read_tsv(its_acc,
                             col_names = c("NCBI_NR_accession","NCBI_TaxID"))
 
