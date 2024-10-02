@@ -2,7 +2,7 @@ This repository aims to replicate the functionality of PICRUSt for fungi by usin
 
 To use this pipeline, you must have a Joint Genome Institute account. If you do not have one, please make one [here](https://contacts.jgi.doe.gov/registration/new?_gl=1*103eu34*_ga*NTA1MTgxMjkuMTcwNTM1NTY1MA..*_ga_YBLMHYR3C2*MTcwNTUyNTg3OC4zLjAuMTcwNTUyNTg3OC4wLjAuMA.).
 
-# Workflow
+# Workflow: Name Matching Method
 ## STEP 0: Download the NCBI ITS sequence database and the Mycocosm list of available fungal genomes
 **Filename: 0\_ncbi\_mycocosm\_match.sh**
 * Required inputs: none
