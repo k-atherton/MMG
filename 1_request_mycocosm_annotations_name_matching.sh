@@ -34,7 +34,7 @@ annotation=$4
 # Run R script to write the request
 echo "Running Request Script"
 module load R
-Rscript write_request_script.R ${mycocosm} ${fungalTax} ${scriptDir} ${username} ${password} ${annotation}
+Rscript write_request_script_name_matching.R ${mycocosm} ${fungalTax} ${scriptDir} ${username} ${password} ${annotation}
 echo "=========================================================="
 
 echo "Requesting data from Mycocosm"
