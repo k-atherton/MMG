@@ -78,4 +78,10 @@ echo "MATCHING ITS SEQUENCES TO MYCOCOSM TAXA"
 cd $functionDir
 Rscript 3_match_its_to_mycocosm.R ${itsacc} ${mycocosm} ${dataDir}
 echo "=========================================================="
+
+echo "MAKING BLAST DATABASE OF MYCOCOSM ITS SEQUENCES"
+cd $dataDir
+module load blast+
+makeblastdb mycocosm_its.fasta
+echo "=========================================================="
 echo "DONE."
