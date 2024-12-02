@@ -82,6 +82,6 @@ echo "=========================================================="
 echo "MAKING BLAST DATABASE OF MYCOCOSM ITS SEQUENCES"
 cd $dataDir
 module load blast+
-makeblastdb mycocosm_its.fasta
+makeblastdb -in mycocosm_its.fasta -dbtype nucl
 echo "=========================================================="
 echo "DONE."

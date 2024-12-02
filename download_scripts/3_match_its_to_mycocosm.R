@@ -31,6 +31,8 @@ its_df <- its_df[which(its_df$NCBI_NR_accession %in% nr_taxid_mapping$NCBI_NR_ac
 
 mycocosm_its_merge = merge(mycocosm_its_merge, its_df, all.x=T)
 mycocosm_its_merge = mycocosm_its_merge[which(mycocosm_its_merge$is_superseded == "N"),]
+mycocosm_its_merge = mycocosm_its_merge[which(mycocosm_its_merge$is_published == "Y"),]
+mycocosm_its_merge = mycocosm_its_merge[which(mycocosm_its_merge$is_restricted == "N"),]
 
 write.csv(mycocosm_its_merge, paste0(data_path,"/mycocosm_its_merge.csv"))
-write.fasta(as.list(mycocosm_its_merge$sequence),mycocosm_its_merge$portal,paste0(data_path,"/mycocosm_its.fasta")
+write.fasta(as.list(mycocosm_its_merge$sequence),mycocosm_its_merge$portal,paste0(data_path,"/mycocosm_its.fasta"))
