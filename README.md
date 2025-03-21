@@ -1,3 +1,4 @@
+# MMG: MycoMetaGenome Predictor
 This repository aims to replicate the functionality of PICRUSt for fungi by using the JGI's Mycocosm of available gene annotations.
 
 To use this pipeline, you must have a Joint Genome Institute account. If you do not have one, please make one [here](https://contacts.jgi.doe.gov/registration/new?_gl=1*103eu34*_ga*NTA1MTgxMjkuMTcwNTM1NTY1MA..*_ga_YBLMHYR3C2*MTcwNTUyNTg3OC4zLjAuMTcwNTUyNTg3OC4wLjAuMA.).
